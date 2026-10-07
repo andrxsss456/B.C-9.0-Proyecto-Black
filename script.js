@@ -268,7 +268,93 @@ function respond(text){
 
     return gen + (top ? " → relacionado con: " + top : "");
 }
+let likes =
+    parseInt(localStorage.getItem("BC_LIKES")) || 0;
 
+let dislikes =
+    parseInt(localStorage.getItem("BC_DISLIKES")) || 0;
+
+document.getElementById("likeCount").textContent = likes;
+document.getElementById("dislikeCount").textContent =
+    dislikes;
+
+function like() {
+
+    likes++;
+
+    localStorage.setItem(
+        "BC_LIKES",
+        likes
+    );
+
+    document.getElementById("likeCount").textContent =
+        likes;
+}
+
+function dislike() {
+
+    dislikes++;
+
+    localStorage.setItem(
+        "BC_DISLIKES",
+        dislikes
+    );
+
+    document.getElementById("dislikeCount").textContent =
+        dislikes;
+}
+``function renderComments() {
+
+    const list =
+        document.getElementById("comments-list");
+
+    list.innerHTML = "";
+
+    const comments =
+        JSON.parse(
+            localStorage.getItem("BC_COMMENTS")
+        ) || [];
+
+    comments.forEach(comment => {
+
+        const div =
+            document.createElement("div");
+
+        div.style.marginBottom = "8px";
+
+        div.textContent = comment;
+
+        list.appendChild(div);
+    });
+}
+
+function addComment() {
+
+    const input =
+        document.getElementById("commentInput");
+
+    const text =
+        input.value.trim();
+
+    if (!text)
+        return;
+
+    const comments =
+        JSON.parse(
+            localStorage.getItem("BC_COMMENTS")
+        ) || [];
+
+    comments.push(text);
+
+    localStorage.setItem(
+        "BC_COMMENTS",
+        JSON.stringify(comments)
+    );
+
+    input.value = "";
+
+    renderComments();
+}
 // ======================================================
 // 10. UI
 // ======================================================
@@ -282,7 +368,33 @@ function addMessage(role,text){
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
+function clearMemory() {
 
+    if (!confirm("¿Reiniciar Black Chat?"))
+        return;
+
+    localStorage.removeItem("BC_10");
+
+    BC = {
+        memory: [],
+        reward: {
+            good: 0,
+            bad: 0
+        },
+        personality: {
+            empathy: 50,
+            curiosity: 70,
+            stability: 60
+        }
+    };
+
+    messagesDiv.innerHTML = "";
+
+    addMessage(
+        "bot",
+        "Memoria reiniciada."
+    );
+}
 // ======================================================
 // 11. SEND
 // ======================================================
@@ -316,6 +428,103 @@ userInput?.addEventListener("keydown",e=>{
 // INIT
 // ======================================================
 
-window.onload=()=>{
-    addMessage("bot","B.C 10.0 CONTINUOUS SYSTEM ONLINE");
+window.onload = () => {
+
+    addMessage(
+        "bot",
+        "🖤 BLACK CHAT ONLINE"
+    );
+
+    renderComments();
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem("BC_PROFILE")
+        );
+
+    if (profile) {
+
+        document.getElementById(
+            "userIdDisplay"
+        ).textContent = profile.id;
+    }
+
+    document.getElementById(
+        "likeCount"
+    ).textContent = likes;
+
+    document.getElementById(
+        "dislikeCount"
+    ).textContent = dislikes;
 };
+// =====================================
+// SISTEMA DE IDENTIDAD B.C
+// =====================================
+
+function generateUserId() {
+    return Math.floor(
+        1000000000 + Math.random() * 9000000000
+    ).toString();
+}
+
+function saveProfile() {
+
+    const name = document.getElementById("userName").value.trim();
+    const age = document.getElementById("userAge").value.trim();
+    const gender = document.getElementById("userGender").value;
+
+    if (!name) {
+        alert("Ingresa un nombre.");
+        return;
+    }
+
+    const profile = {
+        id: generateUserId(),
+        name,
+        age,
+        gender
+    };
+
+    localStorage.setItem(
+        "BC_PROFILE",
+        JSON.stringify(profile)
+    );
+
+    document.getElementById("userIdDisplay").textContent =
+        profile.id;
+
+    alert("Cuenta guardada.");
+}
+
+function loginWithId() {
+
+    const id =
+        document.getElementById("loginId").value.trim();
+
+    const profile =
+        JSON.parse(localStorage.getItem("BC_PROFILE"));
+
+    if (!profile) {
+        alert("No existe ninguna cuenta.");
+        return;
+    }
+
+    if (profile.id === id) {
+
+        document.getElementById("userName").value =
+            profile.name;
+
+        document.getElementById("userAge").value =
+            profile.age;
+
+        document.getElementById("userGender").value =
+            profile.gender;
+
+        document.getElementById("userIdDisplay").textContent =
+            profile.id;
+
+        alert("Cuenta recuperada.");
+    } else {
+        alert("ID incorrecto.");
+    }
+}

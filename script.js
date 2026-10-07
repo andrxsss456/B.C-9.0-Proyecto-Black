@@ -23,7 +23,9 @@ let BC = JSON.parse(localStorage.getItem("BC_10")) || {
         stability: 60
     }
 };
-
+function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+}
 // ---------------- SAVE ----------------
 
 function save(){

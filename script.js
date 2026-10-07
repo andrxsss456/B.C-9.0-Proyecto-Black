@@ -258,6 +258,39 @@ function respond(text){
 
     store(text);
 
+    const intent = classify(text);
+
+    switch(intent){
+
+        case "saludos":
+            return "Hola. Sistema Black Chat operativo.";
+
+        case "estado":
+            return "Funcionando correctamente. Todos los sistemas están activos.";
+
+        case "identidad":
+            return "Soy Black Chat, un sistema experimental desarrollado dentro de Black Project.";
+
+        case "emocion_negativa":
+            return "He detectado un mensaje negativo. ¿Quieres contarme más?";
+
+        case "emocion_positiva":
+            return "Me alegra registrar una interacción positiva.";
+
+        case "peticion":
+            return "Estoy preparado para ayudarte. Explica lo que necesitas.";
+
+        case "feedback_positivo":
+            return "Gracias por tu valoración positiva.";
+
+        case "confirmacion":
+            return "Confirmación registrada.";
+
+        case "negacion":
+            return "Entendido. Ajustaré el contexto.";
+
+    }
+
     const att = attention(text);
 
     const gen = generate();

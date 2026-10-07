@@ -1,6 +1,6 @@
 ﻿﻿{
-  "name": "B.C 8.0 Chat Bot",
-  "short_name": "BC8Chat",
+  "name": "B.C 9.0 - Proyecto Black",
+  "short_name": "Black 9.0",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -19,9 +19,4 @@
       "type": "image/png"
     }
   ]
-}
-{
-  "name": "B.C 9.0 - Proyecto Black",
-  "short_name": "Black 9.0",
-  ...
 }

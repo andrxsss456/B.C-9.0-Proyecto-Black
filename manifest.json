@@ -1,0 +1,27 @@
+﻿﻿{
+  "name": "B.C 8.0 Chat Bot",
+  "short_name": "BC8Chat",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+{
+  "name": "B.C 9.0 - Proyecto Black",
+  "short_name": "Black 9.0",
+  ...
+}

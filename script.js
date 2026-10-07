@@ -303,7 +303,7 @@ function dislike() {
     document.getElementById("dislikeCount").textContent =
         dislikes;
 }
-``function renderComments() {
+function renderComments() {
 
     const list =
         document.getElementById("comments-list");

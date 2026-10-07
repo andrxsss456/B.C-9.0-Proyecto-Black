@@ -255,7 +255,8 @@ function classify(text){
 // ======================================================
 
 function respond(text){
-
+alert("RESPOND NUEVO");
+ 
     store(text);
 
     const intent = classify(text);

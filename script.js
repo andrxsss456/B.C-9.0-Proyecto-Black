@@ -325,6 +325,7 @@ function renderComments() {
         div.textContent = comment;
 
         list.appendChild(div);
+
     });
 }
 
